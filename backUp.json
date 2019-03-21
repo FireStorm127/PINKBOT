@@ -1,0 +1,43 @@
+{
+  "Cmds":{
+    "commands": ["ping","say","purge","github","help"],
+    "audio": [],
+    "meme": ["new_meme","listOfMemes"],
+    "nsfw": ["auto","autoff","hot","ass","boobs","hentai"]
+  },
+  "Desc":{
+    "commands": ["Get your current latency.","Make PinkGuy say something.","Delete from 2 to 100 message in a text channel.","Link to the github of PinkGuy BOT.","Lost? Don\\'t worry ask for help !"],
+    "audio": [],
+    "meme": [],
+    "nsfw": ["Turn on automatic posting of NSFW photos every `<time_step>` mins (default 4hrs).","Turn off automatic posting in the current NSFW channel.","Ask PinkGuy for a hot pic.","Ask an ass pic.","Ask some boobs pic.","Get that anime lewd ... :cmonBruh:"]
+  },
+  "Usage":{
+    "commands": ["","<phrase>","<amount>","","<command_name>"], 
+    "audio": [],
+    "meme": [],
+    "nsfw": ["<time_step>","","","","",""] 
+  },
+  "Var":{
+    "nsfw" : {
+      "channel" : "",
+      "time_step" : 240,
+      "bool" : false,
+      "subr" : [["nsfw","boobs","ass"],["boobs"],["ass"],["HQHentai","Hentai","HuggingHentai"],["instahotties","Page3Glamour"]],
+      "nsfw" : [],
+      "hentai" : [],
+      "boobs" : [],
+      "ass" : [],
+      "hot" : []
+    },
+    "meme" : {
+      "newIndex" : 1,
+      "bool" : false,
+      "index" : [],
+      "type" : [],
+      "link" : [],
+    },
+    "utility" : {
+      "activity" : [["WATCHING","https://www.pornhub.com"],["WATCHING","Big Anime Tities"],["WATCHING","https://www.youtube.com/watch?v=D0q0QeQbw9U"],["PLAYING","fOrTniTE"],["LISTENING","Oof compilations"],["WATCHING","iCarly"]]
+    }
+  }
+}

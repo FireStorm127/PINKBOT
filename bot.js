@@ -6,8 +6,6 @@ const http = require('http');
 const express = require('express'); 
 const app = express();
 app.get("/", (request, response) => {
-  //console.log(" -------------------------");
-  //console.log(" " + Date.now() + " Ping Received");
   response.sendStatus(200);
 });
 app.listen(process.env.PORT);
@@ -15,64 +13,88 @@ setInterval(() => {
   http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
 }, 280);  
 
-
+const fs = require('fs');
+const DATA = require('./dataInterface.js');
 const nsfw = require('./nsfw.js');
 const util = require('./utility.js');
 const cmd = require('./commands.js');
+const Discord = require('discord.js');
 
-// Load up the discord.js library
-const Discord = require("discord.js");
-
-// This is your client. Some people call it `bot`, some people call it `self`, 
-// some might call it `cootchie`. Either way, when you see `client.something`, or `bot.something`,
-// this is what we're refering to. Your client.
 const client = new Discord.Client({
   token: process.env.TOKEN, 
   autorun: true
 }); 
-// Here we load the config.json file that contains our token and our prefix values. 
 const config = require("./config.json"); 
-// config.prefix contains the message prefix.
-
-
 
 client.on("ready", () => { 
   const keys = client.channels.keyArray();
   
   console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`); 
-                          
   console.log(" -------------------------");
   console.log(" Voice Channels:"); util.data.listVoiceChannels(client.channels,keys);
-   
   console.log(" -------------------------");
   console.log(" Setting Activity:"); util.data.changeActivity(client);
-  
-  nsfw.data.init();
+
+  nsfw.data.init(client); 
 }); 
 
 client.on("guildCreate", guild => {
-  // This event triggers when the bot joins a guild.
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
-  client.user.setActivity(`Serving ${client.guilds.size} servers`);
+  let channelID;
+    let channels = guild.channels;
+    channelLoop:
+    for (let c of channels) {
+        let channelType = c[1].type;
+        if (channelType === "text") {
+            channelID = c[0];
+            break channelLoop;
+        }
+    }
+    let channel = client.channels.get(guild.systemChannelID || channelID);
+    channel.send(`Thanks for inviting me into this server!`);
 });
 
 client.on("guildDelete", guild => {
-  // this event triggers when the bot is removed from a guild.
   console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
-  client.user.setActivity(`Serving ${client.guilds.size} servers`);
 });
 
 client.on("message", async message => {
-  if(message.author.bot) return;// anti-loop, ignores bots
-  if(message.content.indexOf(config.prefix) === 0){
+  if(message.author.bot) return;
+  if(message.content.indexOf(config.prefix) === 0){ 
     console.log(" -------------------------");
     console.log(" Input:"); 
     cmd.data.main(message,client,config);
-  } else if(message.content.indexOf(config.prefix2) === 0){ 
-    console.log(" -------------------------");
-    console.log(" Input:");
-    nsfw.data.main(message,client,config);
+  } else if(true){ 
   } else return;
 });
 
 client.login(process.env.TOKEN);  
+
+var oof = function (item,path,action,obj,acc){
+  let key = path[0];
+  if(path.length == 1){
+    switch (action){
+      case 'set':
+        obj[key] = item;
+        break;
+      case 'add':
+        let temp = obj[key];
+        obj[key] = (typeof(temp) === typeof([]) ? push(temp,item) : new Array(item));  //define new push --> array.push(['...','...']) ==> [...,['...','...']]
+        break;
+      case 'remove':
+        let temp2 = obj[key];
+        typeof(temp2) === typeof([]) ? (typeof(temp2.indexOf(item)) === typeof(1) ? temp2.splice(temp2.indexOf(item),1) : temp2) : temp2;
+        obj[key] = temp2;
+        break;
+    }
+    return acc;
+  }else{
+    return oof(item,path.slice(1),action,obj[key],acc);
+  }
+};
+function push(array,item){
+  array[array.length] = item
+  return array;
+};
+    
+ 
