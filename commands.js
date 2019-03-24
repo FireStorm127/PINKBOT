@@ -4,6 +4,7 @@ const audio = require('./audio.js');
 const nsfw = require('./nsfw.js');
 const data = require('./dataInterface.js');
 const fs = require('fs');
+require('isomorphic-fetch');
 
 var Cmds = data.data.getItem(['Cmds','commands'],data.data.read());//["ping","say","purge","github","help"];
 var Desc = data.data.getItem(['Desc','commands'],data.data.read());//['Get your current latency.','Make PinkGuy say something.','Delete from 2 to 100 message in a text channel.','Link to the github of PinkGuy BOT.','Lost? Don\'t worry ask for help !'];
@@ -42,10 +43,13 @@ var methods = {
         help.main(message, args);
         break;
       case 'audio':
-        audio.data.playAudio(message.member.voiceChannel,'https://www.youtube.com/watch?v=2ku6vyVoqsA'); 
+        audio.data.main(message.member.voiceChannel,'https://www.youtube.com/watch?v=9MJ-RuNYILo',true)
+        break;
+      case 'stop':
+        audio.data.stop;
         break;
       default:
-		    nsfw.data.main(message,command, args, client);
+		    nsfw.data.main(message,command, args, client); 
     }
   }
 }

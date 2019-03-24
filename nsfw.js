@@ -30,7 +30,7 @@ var methods = {
       dtaInter.data.update(message.channel.id,nsfwPath.concat('channel'),dta,'set',function(){ return true; });
     }
     console.log(" -------------------------");
-    bool ? console.log(" - Starting auto post in channel: " + message.channel.name) : console.log(" - Starting auto post in channel: " + client.channels.get(message).name);
+    bool ? console.log(" Starting auto post in channel: " + message.channel.name) : console.log(" - Starting auto post in channel: " + client.channels.get(message).name);
     while (variables.boolNSFW){
       methods.sendNSFW(array,index,message,client,bool);
       await util.data.sleep(variables.timeNSFW*60000);

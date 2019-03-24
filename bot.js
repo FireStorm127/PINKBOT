@@ -64,37 +64,8 @@ client.on("message", async message => {
     console.log(" -------------------------");
     console.log(" Input:"); 
     cmd.data.main(message,client,config);
-  } else if(true){ 
   } else return;
 });
 
-client.login(process.env.TOKEN);  
-
-var oof = function (item,path,action,obj,acc){
-  let key = path[0];
-  if(path.length == 1){
-    switch (action){
-      case 'set':
-        obj[key] = item;
-        break;
-      case 'add':
-        let temp = obj[key];
-        obj[key] = (typeof(temp) === typeof([]) ? push(temp,item) : new Array(item));  //define new push --> array.push(['...','...']) ==> [...,['...','...']]
-        break;
-      case 'remove':
-        let temp2 = obj[key];
-        typeof(temp2) === typeof([]) ? (typeof(temp2.indexOf(item)) === typeof(1) ? temp2.splice(temp2.indexOf(item),1) : temp2) : temp2;
-        obj[key] = temp2;
-        break;
-    }
-    return acc;
-  }else{
-    return oof(item,path.slice(1),action,obj[key],acc);
-  }
-};
-function push(array,item){
-  array[array.length] = item
-  return array;
-};
-    
+client.login(process.env.TOKEN);     
  

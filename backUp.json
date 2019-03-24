@@ -1,8 +1,9 @@
 {
+  "Channels": [],
   "Cmds":{
     "commands": ["ping","say","purge","github","help"],
-    "audio": [],
-    "meme": ["new_meme","listOfMemes"],
+    "audio": ["pause","stop","play","skip","empty"],
+    "meme": ["new_meme","listOfMemes","remove"],
     "nsfw": ["auto","autoff","hot","ass","boobs","hentai"]
   },
   "Desc":{
@@ -30,11 +31,13 @@
       "hot" : []
     },
     "meme" : {
-      "newIndex" : 1,
+      "newIndex" : 3,
       "bool" : false,
-      "index" : [],
       "type" : [],
-      "link" : [],
+      "link" : []
+    },
+    "audio" :{
+      "stack" : []
     },
     "utility" : {
       "activity" : [["WATCHING","https://www.pornhub.com"],["WATCHING","Big Anime Tities"],["WATCHING","https://www.youtube.com/watch?v=D0q0QeQbw9U"],["PLAYING","fOrTniTE"],["LISTENING","Oof compilations"],["WATCHING","iCarly"]]
