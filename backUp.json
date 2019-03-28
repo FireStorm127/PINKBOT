@@ -3,7 +3,7 @@
   "Cmds":{
     "commands": ["ping","say","purge","github","help"],
     "audio": ["pause","stop","play","skip","empty"],
-    "meme": ["new_meme","listOfMemes","remove"],
+    "meme": ["new","listOfMemes","remove"],
     "nsfw": ["auto","autoff","hot","ass","boobs","hentai"]
   },
   "Desc":{
@@ -17,6 +17,18 @@
     "audio": [],
     "meme": [],
     "nsfw": ["<time_step>","","","","",""] 
+  },
+  "Restr":{
+    "commands":[],
+    "audio":[],
+    "meme":[],
+    "nsfw":[]
+  },
+  "Arg":{
+    "commands":["","The phrase you want to say.","Amount of message to delete (max 100)","",""],
+    "audio":[],
+    "meme":[],
+    "nsfw":["Time to wait before posting new pic.","","","","",""]
   },
   "Var":{
     "nsfw" : {

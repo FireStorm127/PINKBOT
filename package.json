@@ -14,8 +14,6 @@
     "discord.js": "^11.4.2",
     "random-puppy": "^1.1.0",
     "ytdl-core": "^0.29.0",
-    "node-opus": "^0.2.7",
-    "opusscript": "^0.0.6",
     "isomorphic-fetch": "^2.2.1"
   },
   "engines": {

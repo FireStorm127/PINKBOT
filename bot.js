@@ -26,6 +26,14 @@ const client = new Discord.Client({
 }); 
 const config = require("./config.json"); 
 
+function m(cmd,obj){
+    let array = ['commands','audio','meme','nsfw'];
+    for(let i of array){
+      let j = util.data.arrayFind(cmd,obj.Cmds[i]);
+      if(j != -1) return [j,i]
+    }
+    return -1};
+  
 client.on("ready", () => { 
   const keys = client.channels.keyArray();
   
@@ -34,7 +42,8 @@ client.on("ready", () => {
   console.log(" Voice Channels:"); util.data.listVoiceChannels(client.channels,keys);
   console.log(" -------------------------");
   console.log(" Setting Activity:"); util.data.changeActivity(client);
-
+  
+  let d = DATA.data.read(), i = m('ping',d); console.log(i); console.log(d.Cmds[i[1]][i[0]]);
   nsfw.data.init(client); 
 }); 
 
