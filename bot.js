@@ -1,39 +1,29 @@
-//TODO: --> implement meme.js
-//      --> implement audio.js
-//      --> implement help.js
-
-const http = require('http'); 
-const express = require('express'); 
-const app = express();
+const http = require('http'), 
+      express = require('express'),
+      app = express();
 app.get("/", (request, response) => {
   response.sendStatus(200);
 });
-app.listen(process.env.PORT);
+app.listen(process.env.PORT); 
 setInterval(() => {
   http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
 }, 280);  
 
-const fs = require('fs');
-const DATA = require('./dataInterface.js');
-const nsfw = require('./nsfw.js');
-const util = require('./utility.js');
-const cmd = require('./commands.js');
-const Discord = require('discord.js');
+const fs = require('fs'),
+      DATA = require('./dataInterface.js'),
+      nsfw = require('./nsfw.js'),
+      util = require('./utility.js'),
+      cmd = require('./commands.js'),
+      audio = require('./audio.js'),
+      Discord = require('discord.js'),
+      commando = require('discord.js-commando');
 
+const config = require("./config.json"); 
 const client = new Discord.Client({
   token: process.env.TOKEN, 
   autorun: true
 }); 
-const config = require("./config.json"); 
 
-function m(cmd,obj){
-    let array = ['commands','audio','meme','nsfw'];
-    for(let i of array){
-      let j = util.data.arrayFind(cmd,obj.Cmds[i]);
-      if(j != -1) return [j,i]
-    }
-    return -1};
-  
 client.on("ready", () => { 
   const keys = client.channels.keyArray();
   
@@ -42,13 +32,14 @@ client.on("ready", () => {
   console.log(" Voice Channels:"); util.data.listVoiceChannels(client.channels,keys);
   console.log(" -------------------------");
   console.log(" Setting Activity:"); util.data.changeActivity(client);
-  
-  let d = DATA.data.read(), i = m('ping',d); console.log(i); console.log(d.Cmds[i[1]][i[0]]);
+
+  audio.data.init(client.channels);
   nsfw.data.init(client); 
 }); 
 
 client.on("guildCreate", guild => {
-  console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
+  console.log(" -------------------------");
+  console.log(` New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
   let channelID;
     let channels = guild.channels;
     channelLoop:
@@ -60,11 +51,13 @@ client.on("guildCreate", guild => {
         }
     }
     let channel = client.channels.get(guild.systemChannelID || channelID);
-    channel.send(`Thanks for inviting me into this server!`);
+    channel.send("ey Boss, thanks for inviting me into this server!");
+    channel.send({"file" : "https://cdn.glitch.com/7c0c4f6d-9b75-4956-93c5-b4361e2f3db2%2F1527117972_MajorSomberBaboon-max-1mb.gif"});
 });
 
 client.on("guildDelete", guild => {
-  console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
+  console.log(" -------------------------");
+  console.log(` I have been removed from: ${guild.name} (id: ${guild.id})`);
 });
 
 client.on("message", async message => {
@@ -76,5 +69,7 @@ client.on("message", async message => {
   } else return;
 });
 
-client.login(process.env.TOKEN);     
+client.login(process.env.TOKEN);      
+
+exports.client = client;
  

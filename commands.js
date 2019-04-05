@@ -1,3 +1,5 @@
+//ready 4 1.0
+
 const util = require('./utility.js');
 const help = require('./help.js');
 const audio = require('./audio.js');
@@ -46,7 +48,7 @@ var methods = {
         audio.data.main(message.member.voiceChannel,'https://www.youtube.com/watch?v=9MJ-RuNYILo',true)
         break;
       case 'stop':
-        audio.data.stop;
+        audio.data.stop(message);
         break;
       default:
 		    nsfw.data.main(message,command, args, client); 

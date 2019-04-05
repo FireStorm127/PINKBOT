@@ -1,3 +1,5 @@
+//ready 4 1.0
+
 const audio = require('./audio.js');
 const dtaInter = require('./dataInterface.js');
 const util = require('./utility.js');
@@ -30,6 +32,7 @@ var methods = {
   },
   new: function(msg,args,client){//delete msg.reply...
     cmd = args[0]; prop; index = util.data.arrayFind(cmd,dtaInter.data.getItem(pathCmds,dtaInter.data.read())); let bool = index != -1; 
+    //console.log("before:\n"+index+"\n")
     bool ? msg.reply('this command already exists, send new file or link to change it.') : msg.reply('send file or link of the meme.');
     
     methods.awaitBool(1);
@@ -48,10 +51,11 @@ var methods = {
           
           dtaInter.data.update(false,pathVar.concat('bool'),dtaInter.data.read(),'set',function(){return true;});
           if(bool){
-            let array = dtaInter.data.getItem(pathVar.concat('link'),dtaInter.data.read());
-            array[index] = prop[0]; dtaInter.data.update(array,pathVar.concat('link'),dtaInter.data.read(),'set',function(){return true;});
+            let error = dtaInter.data.getItem(pathVar.concat('newIndex'),dtaInter.data.read());
+            let array = dtaInter.data.getItem(pathVar.concat('link'),dtaInter.data.read());//console.log(array)
+            array[index-error] = prop[0]; dtaInter.data.update(array,pathVar.concat('link'),dtaInter.data.read(),'set',function(){return true;});//console.log(array)
             array = dtaInter.data.getItem(pathVar.concat('type'),dtaInter.data.read());
-            array[index] = prop[1]; dtaInter.data.update(array,pathVar.concat('type'),dtaInter.data.read(),'set',function(){return true;});
+            array[index-error] = prop[1]; dtaInter.data.update(array,pathVar.concat('type'),dtaInter.data.read(),'set',function(){return true;});
           } else {
             dtaInter.data.update(cmd,pathCmds,dtaInter.data.read(),'add',function(){return true;});
             dtaInter.data.update(prop[0],pathVar.concat('link'),dtaInter.data.read(),'add',function(){return true;});
@@ -66,11 +70,11 @@ var methods = {
   removeMeme : function(message,args,obj){
     let target = args[0]
     if(target == undefined) message.channel.send('??????? btw its `$$remove <meme_name>`.');
-    let i = util.data.arrayFind(target,dtaInter.data.getItem(pathCmds,obj));
+    let i = util.data.arrayFind(target,dtaInter.data.getItem(pathCmds,obj)); //console.log(target + " " + i +"\n"+ dtaInter.data.getItem(pathCmds,obj))
     if(i == -1){ 
-      message.channel.send(`target` + ' is not in the database !');
+      message.channel.send('`'+ target + '`' + ' is not in the database !'); 
     }else{
-      let link = dtaInter.data.getItem(pathVar.concat('link'),obj) , type = dtaInter.data.getItem(pathVar.concat('type'),obj);
+      let link = dtaInter.data.getItem(pathVar.concat('link'),obj) , type = dtaInter.data.getItem(pathVar.concat('type'),obj); //console.log("before:\n" + link + " " + type)
       dtaInter.data.update(target,pathCmds,dtaInter.data.read(),'remove',function(){return true;});
       dtaInter.data.update(link[i],pathVar.concat('link'),dtaInter.data.read(),'remove',function(){return true;});
       dtaInter.data.update(type[i],pathVar.concat('type'),dtaInter.data.read(),'remove',function(){return true;});}
@@ -88,7 +92,7 @@ var methods = {
         collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, {time: 60000});
         methods.new(message,args,client);
         break;
-      case 'memes':
+      case 'listofmemes': 
         let list = dta.Cmds.meme, i = dta.Var.meme.newIndex, string = 'here are the memes: \n';
         list = list.slice(i);
         for(var j of list){

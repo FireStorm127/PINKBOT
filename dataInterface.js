@@ -1,3 +1,5 @@
+//ready 4 1.0
+
 const fs = require('fs');
 const util = require('./utility.js');
 const file = './data.json';

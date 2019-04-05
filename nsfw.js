@@ -1,3 +1,5 @@
+//ready 4 1.0
+
 var util = require('./utility.js');
 const dtaInter = require('./dataInterface.js');
 const randomPuppy = require('random-puppy');

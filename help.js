@@ -1,10 +1,8 @@
-const commands = require('./commands.js');
-const nsfw = require('./nsfw.js');
-const audio = require('./audio.js');
-const meme = require('./meme.js');
+
 const util = require('./utility.js');
 const dtaInter = require('./dataInterface.js');
-
+const version = "0.9";
+      
 var today = new Date();
 
 const capitalize = (s) => {
@@ -23,27 +21,27 @@ var methods = {
   },
   cmdDesc: function(cmd,obj){
     let list = "", List;
-    switch(cmd){
+    switch(cmd.toLowerCase()){
       case 'audio':
         List = obj.Cmds.audio;
         for(var i of List){
           list = list + "\n"+ capitalize(i);
         }
-        return {embed: module(cmd,"desc",list)}
+        return {embed: module(cmd,"This module will help you manage PINK GUY when he is playing an audio file in a Voice Channel. In order to use these commands you need to be in a Voice Channel !\nComand in brackets are still in development :pensive:",list)}
         break;
       case 'meme':
         List = obj.Cmds.meme.slice(0,3);
         for(var i of List){
           list = list + "\n"+ capitalize(i);
         }
-        return {embed: module(cmd,"desc",list)}
+        return {embed: module(cmd+" :ok_hand:","ey Boss ! Are you a true Meme Lord?\nThis module allows any user of the guild to add his favourites memes (either audio or graphic). Take a look at the command **`new`** to get started !",list)}
         break;
       case 'nsfw':
         List = obj.Cmds.nsfw;
         for(var i of List){
           list = list + "\n"+ capitalize(i);
         }
-        return {embed: module(cmd,"desc",list)}
+        return {embed: module(cmd+" :eggplant: :omgItsSoFckingBig: :eggplant:","CaN i HaVe SOmE pUSsY plz ?\nThis module can __ONLY__ be used __IN NSFW CHANNELS__ ! It allows user to ask for some nsfw pic and gif.",list)}
         break;
       default:
         let index = methods.mapCmd(cmd,obj);
@@ -63,6 +61,10 @@ var methods = {
             fields[3+j].name = arr[j];
           }
         }
+        let restr = obj.Restr[index[1]][index[0]]
+        fields[0].value = restr[0]
+        fields[1].value = restr[1]
+        
         embedCMD.fields = fields;
         
         return {embed: embedCMD}
@@ -71,26 +73,30 @@ var methods = {
 };
     
 function main (message, args) { 
-  var output = []; var dta = dtaInter.data.read();
+  let output = [], dta = dtaInter.data.read(), reply;
   if(args.length == 0){ 
     output = {embed: embedHelp};
   } else {
     output = methods.cmdDesc(args[0],dta);
-    if (output == -1) output = "unknown command !\nType `$$help` for commands list";   
+    if (output == -1){ 
+      output = "Unknown command !\nType `$$help` for commands list"; 
+      reply = true;  
+    }
   }
-  message.channel.send(output);
+  if(!reply) message.channel.send(output);
+  else message.reply(output);
 };
 
 var pinkuJPG = 'https://i1.sndcdn.com/artworks-000162081203-ppxkn6-t500x500.jpg';
 
 var embedHelp = {
-  "title": "Help Panel",
-  "description": "Here's all the available commands...(meh)",
+  "title": "Help",
+  "description": "Did you know? You can ask PINK GUY for more details on a specific command using `$$help <command>`",
   "color": 15153074,
   "timestamp": today.toISOString(),
   "footer": {
     "icon_url": pinkuJPG,
-    "text": "PINKGUY v1.0"
+    "text": "PINKGUY v" + version
   },
   "fields": [
     {
@@ -105,15 +111,14 @@ var embedHelp = {
 };
 
 function module(name,desc,cmd){
-  console.log(cmd);
   let embed = {
-   "title": capitalize(name) + " Category",
+   "title": capitalize(name),
    "description":desc,
    "color":15153074,
    "timestamp": today.toISOString(),
     "footer": {
       "icon_url": pinkuJPG,
-      "text": "PINKGUY v1.0"
+      "text": "PINKGUY v" + version
     },
     "fields": [
       {
@@ -135,7 +140,7 @@ var embedCMD = {
   "timestamp": today.toISOString(),
   "footer": {
     "icon_url": pinkuJPG,
-    "text": "PINKGUY v1.0"
+    "text": "PINKGUY v" + version
   },
   "fields": [
     {

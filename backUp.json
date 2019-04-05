@@ -1,33 +1,32 @@
 {
-  "Channels": [],
   "Cmds":{
-    "commands": ["ping","say","purge","github","help"],
-    "audio": ["pause","stop","play","skip","empty"],
-    "meme": ["new","listOfMemes","remove"],
+    "commands": ["ping","purge","github","help"],
+    "audio": ["[pause]","stop","[skip]","[addNext]"],
+    "meme": ["new","listofmemes","remove","bruh","ai","despacito2","hoe","y","cancer"],
     "nsfw": ["auto","autoff","hot","ass","boobs","hentai"]
   },
   "Desc":{
-    "commands": ["Get your current latency.","Make PinkGuy say something.","Delete from 2 to 100 message in a text channel.","Link to the github of PinkGuy BOT.","Lost? Don\\'t worry ask for help !"],
-    "audio": [],
-    "meme": [],
+    "commands": ["Get your current latency.","Delete from 2 to 100 message in a text channel.","Link to the github of PinkGuy BOT.","Lost? Don\\'t worry ask for help !"],
+    "audio": ["Pause PINK GUY, and then resumes it if paused.","Kicks PINK GUY of the current Voice Channel","Skips the current soundtrack in the playlist. If the last soundtrack is skipped PINK GUY will leave the channel","Add a new audio file to the playlist."],
+    "meme": ["Add a new meme or modify a meme in the database of PINK GUY.","Ask PINK GUY the list of memes that he knows.","Remove a meme from the database."],
     "nsfw": ["Turn on automatic posting of NSFW photos every `<time_step>` mins (default 4hrs).","Turn off automatic posting in the current NSFW channel.","Ask PinkGuy for a hot pic.","Ask an ass pic.","Ask some boobs pic.","Get that anime lewd ... :cmonBruh:"]
   },
   "Usage":{
-    "commands": ["","<phrase>","<amount>","","<command_name>"], 
-    "audio": [],
-    "meme": [],
+    "commands": ["","<amount>","","<command_name>"], 
+    "audio": ["","","","<meme_name>"],
+    "meme": ["<meme_name>","","<meme_name>"],
     "nsfw": ["<time_step>","","","","",""] 
   },
   "Restr":{
-    "commands":[],
-    "audio":[],
-    "meme":[],
-    "nsfw":[]
+    "commands":[["No restrictions","No restrictions"],["No restrictions","No restrictions"],["No restrictions","No restrictions"],["No restrictions","No restrictions"]],
+    "audio":[["Voice channel","No restrictions"],["Voice channel","No restrictions"],["Voice channel","No restrictions"],["Voice channel","No restrictions"]],
+    "meme":[["No restrictions","No restrictions"],["No restrictions","No restrictions"],["No restrictions","No restrictions"]],
+    "nsfw":[["NSFW channel","NSFW channel"],["NSFW channel","NSFW channel"],["NSFW channel","NSFW channel"],["NSFW channel","NSFW channel"],["NSFW channel","NSFW channel"],["NSFW channel","NSFW channel"]]
   },
   "Arg":{
     "commands":["","The phrase you want to say.","Amount of message to delete (max 100)","",""],
-    "audio":[],
-    "meme":[],
+    "audio":["","","",""],
+    "meme":["Name of the new command","","Meme to remove from database"],
     "nsfw":["Time to wait before posting new pic.","","","","",""]
   },
   "Var":{
@@ -45,14 +44,17 @@
     "meme" : {
       "newIndex" : 3,
       "bool" : false,
-      "type" : [],
-      "link" : []
+      "type" : ["y","a","a","a","a","a"],
+      "link" : ["https://www.youtube.com/watch?v=2ZIpFytCSVc","https://cdn.discordapp.com/attachments/560499509193342976/562990016436109334/IxpceowZJGfEDHYeAV4JC4bvEJnsx0HjHOR022pW.mp3","https://cdn.discordapp.com/attachments/560499509193342976/562990423669473292/4D1t2yeqGN29tu454LhgfwXMmnm9yufgSkueKfxQ.mp3","https://cdn.discordapp.com/attachments/563493871045050368/563711036717400066/who-ever-threw-that-paper-your-moms-a-hoe.mp3","https://cdn.discordapp.com/attachments/563493871045050368/563733745492951050/jABgUepkmaKGSpnQvqM5tJ40eBy2wj52cW7LYvj4.mp3","https://cdn.discordapp.com/attachments/563493871045050368/563734564300783616/WnMoillLveXg2YsQHhMcYmFi4GYFEXNer8p6KPoy.mp3"]
     },
     "audio" :{
+      "channelID" : "",
+      "serverID" : "",
+      "isPlaying" : false,
       "stack" : []
     },
     "utility" : {
-      "activity" : [["WATCHING","https://www.pornhub.com"],["WATCHING","Big Anime Tities"],["WATCHING","https://www.youtube.com/watch?v=D0q0QeQbw9U"],["PLAYING","fOrTniTE"],["LISTENING","Oof compilations"],["WATCHING","iCarly"]]
+      "activity" : [["WATCHING","Entei"],["PLAYING","fOrTniTE"],["LISTENING","Oof compilations"],["WATCHING","iCarly"],["WARCHING","PewNews"]]
     }
   }
 }

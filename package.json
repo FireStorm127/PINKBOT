@@ -7,14 +7,17 @@
   "description": "A simple Node app built on Express, instantly up and running.",
   "main": "bot.js",
   "scripts": {
-    "start": "node bot.js"
+    "start": "node bot.js" 
   },
   "dependencies": {
     "express": "^4.16.4",
     "discord.js": "^11.4.2",
     "random-puppy": "^1.1.0",
     "ytdl-core": "^0.29.0",
-    "isomorphic-fetch": "^2.2.1"
+    "isomorphic-fetch": "^2.2.1",
+    "node-opus": "^0.3.1",
+    "discord.js-commando": "^0.10.0",
+    "path": "^0.12.7"
   },
   "engines": {
     "node": "8.x"
