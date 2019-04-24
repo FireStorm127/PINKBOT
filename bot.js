@@ -10,6 +10,7 @@ setInterval(() => {
 }, 280);   
 
 const nsfw = require('./nsfw.js'),
+      dtaInter = require('./dataInterface.js'),
       util = require('./utility.js'),
       cmd = require('./commands.js'),
       audio = require('./audio.js'),
@@ -32,6 +33,10 @@ client.on("ready", () => {
   
   audio.data.init(client.channels);
   nsfw.data.init(client);  
+  
+  let memes = dtaInter.data.getData('/Cmds/meme');
+  console.log(" -------------------------");
+  console.log(" Current memes:\n - Name: " + memes.splice(dtaInter.data.getData('/Var/meme/newIndex')) + "\n - Link: " + dtaInter.data.getData('/Var/meme/link') + "\n - Type: " + dtaInter.data.getData('/Var/meme/type'));
 }); 
 
 client.on("guildCreate", guild => {

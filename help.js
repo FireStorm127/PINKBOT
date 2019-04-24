@@ -1,7 +1,7 @@
 
 const util = require('./utility.js'),
       dtaInter = require('./dataInterface.js'),
-      version = "0.9";
+      version = "1.0";
       
 var today = new Date();
 
