@@ -1,16 +1,8 @@
 //ready 4 1.0
 
-const util = require('./utility.js');
-const help = require('./help.js');
-const audio = require('./audio.js');
-const nsfw = require('./nsfw.js');
-const data = require('./dataInterface.js');
-const fs = require('fs');
-require('isomorphic-fetch');
-
-var Cmds = data.data.getItem(['Cmds','commands'],data.data.read());//["ping","say","purge","github","help"];
-var Desc = data.data.getItem(['Desc','commands'],data.data.read());//['Get your current latency.','Make PinkGuy say something.','Delete from 2 to 100 message in a text channel.','Link to the github of PinkGuy BOT.','Lost? Don\'t worry ask for help !'];
-var Usage = data.data.getItem(['Usage','commands'],data.data.read());//['','<phrase>','<amount>','','<command_name>']; 
+const help = require('./help.js'),
+      audio = require('./audio.js'),
+      nsfw = require('./nsfw.js');
  
 var methods = {
   main: async function (message, client, config){
@@ -57,6 +49,3 @@ var methods = {
 }
 
 exports.data = methods;
-exports.cmd = Cmds;
-exports.desc = Desc;
-exports.use = Usage;

@@ -1,7 +1,7 @@
 
-const util = require('./utility.js');
-const dtaInter = require('./dataInterface.js');
-const version = "0.9";
+const util = require('./utility.js'),
+      dtaInter = require('./dataInterface.js'),
+      version = "0.9";
       
 var today = new Date();
 
@@ -73,7 +73,7 @@ var methods = {
 };
     
 function main (message, args) { 
-  let output = [], dta = dtaInter.data.read(), reply;
+  let output = [], dta = dtaInter.read(), reply;
   if(args.length == 0){ 
     output = {embed: embedHelp};
   } else {

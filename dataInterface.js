@@ -1,52 +1,78 @@
 //ready 4 1.0
 
-const fs = require('fs');
-const util = require('./utility.js');
-const file = './data.json';
+const fs = require('fs'),
+      util = require('./utility.js'),
+      file = './data.json',
+      JsonDB = require('node-json-db');
 
-var oof = function (item,path,action,obj,acc){
-  let key = path[0];
-  if(path.length == 1){
-    switch (action){
-      case 'set':
-        obj[key] = item;
-        break;
-      case 'add':
-        let temp = obj[key];
-        obj[key] = (typeof(temp) === typeof([]) ? util.data.push(temp,item) : new Array(item));  
-        break;
-      case 'remove':
-        let temp2 = obj[key];
-        typeof(temp2) === typeof([]) ? (typeof(temp2.indexOf(item)) === typeof(1) ? temp2.splice(temp2.indexOf(item),1) : temp2) : temp2;
-        obj[key] = temp2;
-        break;
-    }
-    return acc;
-  }else{
-    return oof(item,path.slice(1),action,obj[key],acc);
-  }
-};
+var dta = new JsonDB("./data.json",true,true,'/');
 
-var methods = {
-  read: function(){
-    return JSON.parse(fs.readFileSync(file,'utf8')); 
-  },
-  write: function(dta){
-    fs.writeFileSync(file,JSON.stringify(dta),'utf8');
-  },
-  getItem: function(path,dta){
-    var temp = dta;
-    for (var i in path){
-      temp = temp[path[i]];
-    }
-    return temp;
-  },
-  update: function(item, path, obj, action, control){
-    if (control()) {
-      oof(item,path,action,obj,obj);
-      methods.write(obj);
-    }
-  }
+var Action = {
+	set : function(item,path){
+		dta.push(path,item);
+	},
+	addObj : function(item,path){
+		let k = Object.keys(item), v = Object.values(item), n = k.length;
+		for(var i = 0; i < n; i++){
+			dta.push(path + '/' + k[i],v[i]);
+		}
+	},
+	add : function(item,path){
+		let temp = dta.getData(path);
+		temp === null ? temp = item : (Array.isArray(temp) ? temp.push(item) : temp = new Array(temp,item));
+		dta.push(path,temp);
+	},
+	remove : function(item,path){
+		let temp;
+		if(item === null){
+			let newPath = path.split('/'), key = newPath.pop(); path = '';
+			for(var i = 1; i < newPath.length; i++){
+				path += '/' + newPath[i];
+			}
+			temp = dta.getData(path); delete temp[key];
+		} else {
+			temp = dta.getData(path); let index = util.data.arrayFind(item,temp);
+			index !== -1 ? temp.splice(index,1) : console.log('Not found ['+ item + '] @' + path);
+		} 
+		dta.push(path,temp);
+	}
 }
 
-exports.data = methods;
+function Update(items,paths,actions){
+	if(items.length !== paths.length || items.length !== actions.length) return;
+	for (var i = 0; i < paths.length; i++){
+		if(actions[i] === 'set'){
+			Action.set(items[i],paths[i]);
+		} else if(actions[i] === 'add') {
+			let temp = dta.getData(paths[i]);
+			if(temp !== null && !Array.isArray(temp) && typeof(temp) === 'object'){
+				Action.addObj(items[i],paths[i]);
+			} else {
+				Action.add(items[i],paths[i]);
+			}
+		} else {
+			Action.remove(items[i],paths[i]);	
+		}
+	}
+}
+
+function Type(obj){
+  let temp;
+  typeof(obj) !== 'object' ? temp = typeof(obj) : (Array.isArray(obj) ? temp = 'array' : temp = 'object');
+  return temp;
+}
+
+function read(f){
+  !f ? f = file : f; 
+  return JSON.parse(fs.readFileSync(f,'utf8')); 
+}
+
+function write(obj,f){
+  !f ? f = file : f; 
+  fs.writeFileSync(f,JSON.stringify(obj,null,'\t'),'utf8');
+}
+
+exports.read = read;
+exports.write = write; 
+exports.up = Update;
+exports.data = dta;

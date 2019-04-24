@@ -7,16 +7,13 @@ app.get("/", (request, response) => {
 app.listen(process.env.PORT);  
 setInterval(() => {
   http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-}, 280);  
+}, 280);   
 
-const fs = require('fs'),
-      DATA = require('./dataInterface.js'),
-      nsfw = require('./nsfw.js'),
+const nsfw = require('./nsfw.js'),
       util = require('./utility.js'),
       cmd = require('./commands.js'),
       audio = require('./audio.js'),
-      Discord = require('discord.js'),
-      commando = require('discord.js-commando');
+      Discord = require('discord.js');
 
 const config = require("./config.json"); 
 const client = new Discord.Client({
@@ -32,9 +29,9 @@ client.on("ready", () => {
   console.log(" Voice Channels:"); util.data.listVoiceChannels(client.channels,keys);
   console.log(" -------------------------");
   console.log(" Setting Activity:"); util.data.changeActivity(client);
-
+  
   audio.data.init(client.channels);
-  nsfw.data.init(client); 
+  nsfw.data.init(client);  
 }); 
 
 client.on("guildCreate", guild => {

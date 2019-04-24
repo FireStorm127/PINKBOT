@@ -1,8 +1,8 @@
 dependencies:
   discord.js: 11.4.2
-  discord.js-commando: 0.10.0
   express: 4.16.4
   isomorphic-fetch: 2.2.1
+  node-json-db: 0.11.0
   node-opus: 0.3.1
   path: 0.12.7
   random-puppy: 1.1.0
@@ -69,12 +69,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-6tvAOO+D6OENvRAh524Dh9jcfKTYDQAqvqezbCW82xj5X0pSrcpxtvRKHLG0yBY6SD7PSDrJaj+0AiOcKVd1Xg==
-  /common-tags/1.8.0:
-    dev: false
-    engines:
-      node: '>=4.0.0'
-    resolution:
-      integrity: sha512-6P6g0uetGpW/sdyUy/iQQCbFF0kWVMSIVSyYz7Zgjcgh8mgw8PQzDNZeyZ5DQ2gM7LBoZPHmnjz8rUthkBG5tw==
   /content-disposition/0.5.2:
     dev: false
     engines:
@@ -121,19 +115,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
-  /discord.js-commando/0.10.0:
-    dependencies:
-      common-tags: 1.8.0
-      escape-string-regexp: 1.0.5
-      require-all: 2.2.0
-    dev: false
-    engines:
-      node: '>=7.6.0'
-    peerDependencies:
-      discord.js: ^11.2.0
-      sqlite: ^2.0.0
-    resolution:
-      integrity: sha1-v6mL8zEIcDdvPHoNe3Nqaj5dCg8=
   /discord.js/11.4.2:
     dependencies:
       long: 4.0.0
@@ -178,12 +159,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=
-  /escape-string-regexp/1.0.5:
-    dev: false
-    engines:
-      node: '>=0.8.0'
-    resolution:
-      integrity: sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
   /etag/1.8.1:
     dev: false
     engines:
@@ -414,6 +389,17 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-KJ3AyIVZ76QuWAq43BWjkK+jLdhxhy3s4tsdg9Je91+cIFkeOSW2VEj2lSeKw50CPu1eCCkSbiQEBKL36mpA5w==
+  /minimist/0.0.8:
+    dev: false
+    resolution:
+      integrity: sha1-hX/Kv8M5fSYluCKCYuhqp6ARsF0=
+  /mkdirp/0.5.1:
+    dependencies:
+      minimist: 0.0.8
+    dev: false
+    hasBin: true
+    resolution:
+      integrity: sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   /ms/2.0.0:
     dev: false
     resolution:
@@ -435,6 +421,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-NhZ4CsKx7cYm2vSrBAr2PvFOe6sWDf0UYLRqA6svUYg7+/TSfVAu49jYC4BvQ4Sms9SZgdqGBgroqfDhJdTyKQ==
+  /node-json-db/0.11.0:
+    dependencies:
+      mkdirp: 0.5.1
+    dev: false
+    resolution:
+      integrity: sha512-QsP8/qJmVPhC2qnxO3O4NIsAd/FDVnO/eNtQvATkWjhPZe7sKeANGcELHk2vnJt6qXHmvolLP1ylaFjSvp9hcw==
   /node-opus/0.3.1:
     dependencies:
       bindings: 1.2.1
@@ -556,10 +548,6 @@ packages:
     requiresBuild: true
     resolution:
       integrity: sha512-2cBCniTtxcGUjDpvFfVpw323a83/0RLSGJJY5l5lcomZWhYpU2cuLdsvYqMixvsdLJ9+sTdzEkju8J8ZHDM2nA==
-  /require-all/2.2.0:
-    dev: false
-    resolution:
-      integrity: sha1-tEIMIzrAKC0P9Jsnf7iAqLXeCJQ=
   /safe-buffer/5.1.2:
     dev: false
     resolution:
@@ -722,9 +710,9 @@ shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
   discord.js: ^11.4.2
-  discord.js-commando: ^0.10.0
   express: ^4.16.4
   isomorphic-fetch: ^2.2.1
+  node-json-db: ^0.11.0
   node-opus: ^0.3.1
   path: ^0.12.7
   random-puppy: ^1.1.0

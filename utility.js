@@ -1,4 +1,4 @@
-const data = require('./dataInterface.js');
+const dtaInter = require('./dataInterface.js');
 
 var methods = {
   getRandomInt:function (max) {
@@ -38,7 +38,7 @@ var methods = {
   changeActivity: async function(client){
     var bool = false;
     var time = methods.getRandomInt(180);
-    var array = data.data.getItem(['Var','utility','activity'],data.data.read());//[['WATCHING','https://www.pornhub.com'],['WATCHING','Big Anime Tities'],['WATCHING','https://www.youtube.com/watch?v=D0q0QeQbw9U'],['PLAYING','fOrTniTE'],['LISTENING','Oof compilations'],['WATCHING','iCarly']];
+    var array = dtaInter.data.getData('/Var/utility/activity');
     while(true){
       var status = array[methods.getRandomInt(array.length-1)];  
       if (bool) {
