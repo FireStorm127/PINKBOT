@@ -40,7 +40,7 @@ var methods = {
   stop: function(message){
     if(!Connection) return;
     if(message.guild.voiceConnection.channel == Connection.channel){ 
-      Connection.channel.leave();
+      Connection.channel.leave(); console.log(' -------------------------\n Disconnected from '+ Connection.channel.name + ' : ' + message.guild.name);
       Connection = undefined;
       dtaInter.up(["","",false],['/Var/audio/serverID','/Var/audio/channelID','/Var/audio/isPlaying'],['set','set','set']); 
     }
@@ -63,19 +63,10 @@ var methods = {
     
     dispatcher.on("end", async function(end){
       await util.data.sleep(5*60000); 
-      channel.leave(); Connection = undefined; 
+      channel.leave(); Connection = undefined; console.log(' -------------------------\n Disconnected from '+ channel.name + ' : ' + channel.guild.name); 
       dtaInter.up(["","",false],['/Var/audio/serverID','/Var/audio/channelID','/Var/audio/isPlaying'],['set','set','set']); 
     });  
   }
 }
 
-function main(channel,res){
-
-}
-
-function play(){
-  
-}
 exports.data = methods; 
-exports.main = main;
-exports.play = play;

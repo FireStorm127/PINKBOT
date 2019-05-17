@@ -20,7 +20,7 @@ var methods = {
         message.delete().catch(O_o=>{});  
         message.channel.send(sayMessage);
         break;
-      case'purge':
+      case 'purge':
         const deleteCount = parseInt(args[0], 10);
     
         if(!deleteCount || deleteCount < 2 || deleteCount > 100)
@@ -35,9 +35,6 @@ var methods = {
         break;
       case 'help':
         help.main(message, args);
-        break;
-      case 'audio':
-        audio.data.main(message.member.voiceChannel,'https://www.youtube.com/watch?v=9MJ-RuNYILo',true)
         break;
       case 'stop':
         audio.data.stop(message);

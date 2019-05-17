@@ -7,7 +7,7 @@ app.get("/", (request, response) => {
 app.listen(process.env.PORT);  
 setInterval(() => {
   http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-}, 280);   
+}, 280);  
 
 const nsfw = require('./nsfw.js'),
       dtaInter = require('./dataInterface.js'),
@@ -36,7 +36,7 @@ client.on("ready", () => {
   
   let memes = dtaInter.data.getData('/Cmds/meme');
   console.log(" -------------------------");
-  console.log(" Current memes:\n - Name: " + memes.splice(dtaInter.data.getData('/Var/meme/newIndex')) + "\n - Link: " + dtaInter.data.getData('/Var/meme/link') + "\n - Type: " + dtaInter.data.getData('/Var/meme/type'));
+  console.log(" Current memes:\n - Name: " + memes.slice(dtaInter.data.getData('/Var/meme/newIndex')) + "\n - Link: " + dtaInter.data.getData('/Var/meme/link') + "\n - Type: " + dtaInter.data.getData('/Var/meme/type'));
 }); 
 
 client.on("guildCreate", guild => {

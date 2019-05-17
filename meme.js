@@ -31,7 +31,6 @@ var methods = {
     return prop;
   },
   new: function(msg,args,client){//delete msg.reply...
-    //let dta = dtaInter.read();
     cmd = args[0]; index = util.data.arrayFind(cmd,dtaInter.data.getData(pathCmds)); let bool = index != -1; 
     //console.log(cmd)
     bool ? msg.reply('this command already exists, send new file or link to change it.') : msg.reply('send file or link of the meme.');
