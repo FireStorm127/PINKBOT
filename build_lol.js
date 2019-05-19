@@ -53,7 +53,7 @@ function sort(array,key){
 }
 
 function main(name,position){
-	let url = 'https://u.gg/lol/champions/'+name.toLowerCase()+'/build',
+	let url = 'https://u.gg/lol/champions/'+name.toLowerCase()+'/build/?role='+position,
 		champion = {
 			"summoner" : new Array(),
 			"runes" : {
@@ -84,16 +84,17 @@ function main(name,position){
 	return champion;
 }
 
-console.log(main("nasus","top"));
+exports.main = main;
+//console.log(main("nasus","top"));
 
-var item = Div.split('class="grid-block starting-items"')[1].split('class="grid-block final-items"'),
-	start = item[0],
-	core = item[1].split('class="grid-block item-options-1"')[0];
+//var item = Div.split('class="grid-block starting-items"')[1].split('class="grid-block final-items"'),
+	//start = item[0],
+	//core = item[1].split('class="grid-block item-options-1"')[0];
 
-var style = core.split('<div style=')
-var tempK = new Array()
-style.forEach(function(element){
-	if(element.includes('background-image:url(')){
-		tempK.push(element.split('background-image:url(')[1].split(';background-repeat')[0])
-	}
-});
+//var style = core.split('<div style=')
+//var tempK = new Array()
+//style.forEach(function(element){
+	//if(element.includes('background-image:url(')){
+		//tempK.push(element.split('background-image:url(')[1].split(';background-repeat')[0])
+	//}
+//});

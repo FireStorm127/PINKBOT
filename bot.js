@@ -14,6 +14,8 @@ const nsfw = require('./nsfw.js'),
       util = require('./utility.js'),
       cmd = require('./commands.js'),
       audio = require('./audio.js'),
+      lol = require('./build_lol.js'),
+      merge = require('merge-img'),
       Discord = require('discord.js');
 
 const config = require("./config.json"); 
@@ -37,7 +39,8 @@ client.on("ready", () => {
   let memes = dtaInter.data.getData('/Cmds/meme');
   console.log(" -------------------------");
   console.log(" Current memes:\n - Name: " + memes.slice(dtaInter.data.getData('/Var/meme/newIndex')) + "\n - Link: " + dtaInter.data.getData('/Var/meme/link') + "\n - Type: " + dtaInter.data.getData('/Var/meme/type'));
-}); 
+  
+});       
 
 client.on("guildCreate", guild => {
   console.log(" -------------------------");
@@ -64,7 +67,18 @@ client.on("guildDelete", guild => {
 
 client.on("message", async message => {
   if(message.author.bot) return;
-  if(message.content.indexOf(config.prefix) === 0){ 
+  if(message.content === '$$test'){
+    let champ = lol.main("lucian","adc"), summoners = champ.runes.primary, option = {direction:true,offset:10};
+    Merge(summoners,{offset:5},'./out1.png'); summoners = champ.runes.secondary;
+    Merge(summoners,{offset:5},'./out2.png'); 
+    Merge(['./out1.png','./out2.png'],option,'./out.png'); 
+    
+    message.channel.send({files: [{
+    attachment:'./out.png',
+    name:'out.png'
+  }]})
+  }
+  else if(message.content.indexOf(config.prefix) === 0){ 
     console.log(" -------------------------");
     console.log(" Input:"); 
     cmd.data.main(message,client,config);
@@ -72,6 +86,13 @@ client.on("message", async message => {
 });
 
 client.login(process.env.TOKEN);      
+
+function Merge(array,bool,file){
+  merge(array,bool)
+  .then((img) => {
+    img.write(file, () => console.log(file + ' written !'));
+  });
+}
 
 exports.client = client;
  
